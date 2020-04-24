@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { actions as usersActions } from 'redux/reducers/users';
+
 import {
   Box,
   Button,
   Heading,
+  List,
   Collapsible,
   Grommet,
   Layer,
@@ -44,6 +49,24 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
   // const contentArray = Array(20).fill('content');
 
+  const getUsersFetching = useSelector((state) => state.users.getUsersFetching);
+  const getUsersSuccess = useSelector((state) => state.users.getUsersSuccess);
+  // const getUsersError = useSelector((state) => state.users.getUsersError);
+
+  console.log(getUsersSuccess);
+
+  const dispatch = useDispatch();
+  const getUsers = () => dispatch(usersActions.getUsers());
+
+  useEffect(() => {
+    getUsers();
+    // return () => {
+    //   cleanup
+    // }
+  }, []);
+
+  const usersList = getUsersSuccess && getUsersSuccess.data;
+
   return (
     <Grommet theme={theme} full themeMode="dark">
       <ResponsiveContext.Consumer>
@@ -56,8 +79,22 @@ function App() {
               <Button icon={<Menu />} onClick={() => setShowSidebar(!showSidebar)} />
             </AppBar>
             <Box direction="row" flex overflow={{ horizontal: 'hidden' }}>
-              <Box flex align="center" justify="center">
-                app body
+              <Box
+                flex
+                align="start"
+                alignSelf="start"
+                justify="center"
+                round="samll"
+                margin="small"
+              >
+                {usersList && !getUsersFetching && (
+                  <List
+                    primaryKey="first_name"
+                    secondaryKey="last_name"
+                    data={usersList}
+                    alignSelf="start"
+                  />
+                )}
               </Box>
               {!showSidebar || size !== 'small' ? (
                 <Collapsible direction="horizontal" open={showSidebar}>
