@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { ConnectedRouter } from 'connected-react-router';
+
 import { Provider } from 'react-redux';
 import configureStore from 'redux/storeConfig';
 
@@ -20,7 +22,9 @@ const MOUNT_NODE = document.getElementById('app');
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
     </Provider>
   </React.StrictMode>,
   MOUNT_NODE,
