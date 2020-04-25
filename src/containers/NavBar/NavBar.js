@@ -16,6 +16,8 @@ const AppBar = (props) => (
     pad={{ left: 'medium', right: 'small', vertical: 'small' }}
     elevation="medium"
     style={{ zIndex: '1' }}
+    responsive="true"
+    background="light-2"
     // eslint-disable-next-line react/jsx-props-no-spreading
     {...props}
   />

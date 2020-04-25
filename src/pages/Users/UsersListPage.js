@@ -1,5 +1,6 @@
 import React, { memo, useEffect } from 'react';
 // import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -27,7 +28,7 @@ export const UsersListPage = () => {
   return (
     <Box
       flex
-      align="start"
+      align="center"
       alignSelf="start"
       justify="center"
       round="small"
@@ -47,13 +48,16 @@ export const UsersListPage = () => {
               primary: true,
               render: (user) => (
                 <Box pad={{ vertical: 'xsmall' }}>
-                  <Avatar src={user.avatar} />
+                  <Link to={`/users/${user.id}`}>
+                    <Avatar src={user.avatar} />
+                  </Link>
                 </Box>
               ),
             },
             {
               property: 'first_name',
               header: <Text>First Name</Text>,
+              render: (user) => <Link to={`/users/${user.id}`}>{user.first_name}</Link>,
             },
             {
               property: 'last_name',

@@ -20,13 +20,13 @@ const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
+  </Provider>,
+  // </React.StrictMode>,
   MOUNT_NODE,
 );
 

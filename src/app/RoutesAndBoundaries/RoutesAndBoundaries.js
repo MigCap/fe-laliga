@@ -6,12 +6,14 @@ import { Switch, Route } from 'react-router-dom';
 
 import LoginPage from 'pages/LoginPage';
 import UsersListPage from 'pages/Users/UsersListPage';
+import UserDetailPage from 'pages/Users/UserDetailPage';
 
 import './RoutesAndBoundaries.scss';
 
 export const RoutesAndBoundaries = () => (
   <Switch>
     <Route exact path="/" component={LoginPage} />
+    <Route exact path="/users/:userId" component={UserDetailPage} />
     <Route exact path="/users" component={UsersListPage} />
   </Switch>
 );
