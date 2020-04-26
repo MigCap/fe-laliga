@@ -6,8 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { actions as usersActions } from 'redux/reducers/users';
 
-import { Box, Heading, Avatar, Form, FormField, TextInput, Button } from 'grommet';
-import { Trash } from 'grommet-icons';
+import { users } from 'utils/routes/routes';
+
+import { Box, Heading, Avatar, Form, FormField, TextInput, Text, Button } from 'grommet';
+import { Trash, Previous } from 'grommet-icons';
 
 import './UserDetailPage.scss';
 
@@ -74,7 +76,17 @@ export const UserDetailPage = (props) => {
 
   if (showUserDetail) {
     return (
-      <Box pad="medium" flex align="center">
+      <Box pad="small" flex align="center">
+        <Box pad="medium" alignSelf="start">
+          <Link type="button" to={users()}>
+            <Button
+              type="button"
+              icon={<Previous color="accent-1" />}
+              plain
+              label={<Text color="accent-1">Volver</Text>}
+            />
+          </Link>
+        </Box>
         <Box pad="medium">
           <Avatar src={userValues.avatar} size="large" />
         </Box>
@@ -107,14 +119,12 @@ export const UserDetailPage = (props) => {
             <Box direction="row" pad={{ top: 'medium' }} gap="medium">
               <Button
                 type="button"
-                secondary
+                primary
                 label="Borrar usuario"
                 icon={<Trash />}
+                fill
                 onClick={() => handleDeleteUser()}
               />
-              <Link type="button" to="/users">
-                <Button type="button" label="Volver" />
-              </Link>
             </Box>
           </Form>
         </Box>

@@ -3,16 +3,14 @@ export const types = {
   LOGIN_USER_SUCCESS: 'auth/LOGIN_USER_SUCCESS',
   LOGIN_USER_ERROR: 'auth/LOGIN_USER_ERROR',
 
-  LOGOUT_USER_BEGINS: 'auth/LOGOUT_USER_BEGINS',
-  LOGOUT_USER_SUCCESS: 'auth/LOGOUT_USER_SUCCESS',
-  LOGOUT_USER_ERROR: 'auth/LOGOUT_USER_ERROR',
+  LOGOUT_USER: 'auth/LOGOUT_USER',
 };
 
 export const initialState = {
   loginUserFetching: false,
-  loginUserSuccess: null,
+  loginUserSuccess: false,
   loginUserError: null,
-  isAuthenticated: false,
+  token: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -22,27 +20,37 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loginUserFetching: true,
-        loginUserSuccess: null,
+        loginUserSuccess: false,
         loginUserError: null,
-        isAuthenticated: false,
+        token: null,
       };
     }
     case types.LOGIN_USER_SUCCESS: {
       return {
         ...state,
         loginUserFetching: false,
-        loginUserSuccess: action.authToken,
+        loginUserSuccess: !!action.authToken,
         loginUserError: null,
-        isAuthenticated: !!action.authToken,
+        token: action.authToken,
       };
     }
     case types.LOGIN_USER_ERROR: {
       return {
         ...state,
         loginUserFetching: false,
-        loginUserSuccess: null,
+        loginUserSuccess: false,
         loginUserError: action.error,
-        isAuthenticated: false,
+        token: null,
+      };
+    }
+    // LOGOUT USER
+    case types.LOGOUT_USER: {
+      return {
+        ...state,
+        loginUserFetching: false,
+        loginUserSuccess: false,
+        loginUserError: null,
+        token: null,
       };
     }
 
@@ -68,7 +76,7 @@ export const actions = {
 
   // LOGOUT USER
   logoutUser: () => ({
-    type: types.LOGOUT_USER_BEGINS,
+    type: types.LOGOUT_USER,
   }),
 };
 

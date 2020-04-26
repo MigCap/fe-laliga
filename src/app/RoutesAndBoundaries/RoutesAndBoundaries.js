@@ -1,23 +1,35 @@
-import React, { memo } from 'react';
+import React, { lazy } from 'react';
 // import PropTypes from 'prop-types';
-import { compose } from 'redux';
-
 import { Switch, Route } from 'react-router-dom';
 
-import LoginPage from 'pages/LoginPage';
-import UsersListPage from 'pages/Users/UsersListPage';
-import UserDetailPage from 'pages/Users/UserDetailPage';
+import RequireAuth from 'app/RequireAuth/RequireAuth';
+
+import { login, logout, users, userDetail } from 'utils/routes/routes';
 
 import './RoutesAndBoundaries.scss';
 
-export const RoutesAndBoundaries = () => (
-  <Switch>
-    <Route exact path="/" component={LoginPage} />
-    <Route exact path="/users/:userId" component={UserDetailPage} />
-    <Route exact path="/users" component={UsersListPage} />
-  </Switch>
-);
+const LoginPage = lazy(() => import('pages/Login/LoginPage'));
+const LogoutPage = lazy(() => import('pages/Logout/LogoutPage'));
+const UsersListPage = lazy(() => import('pages/Users/UsersListPage'));
+const UserDetailPage = lazy(() => import('pages/Users/UserDetailPage'));
+
+export default function RoutesAndBoundaries() {
+  return (
+    <Switch>
+      <Route exact path={login()} component={LoginPage} />
+      <Route exact path={logout()} component={LogoutPage} />
+      <Route
+        exact
+        path={userDetail()}
+        render={(props) => <RequireAuth {...props} Component={UserDetailPage} />}
+      />
+      <Route
+        exact
+        path={users()}
+        render={(props) => <RequireAuth {...props} Component={UsersListPage} />}
+      />
+    </Switch>
+  );
+}
 
 // FlexContainer.propTypes = {}
-
-export default compose(memo)(RoutesAndBoundaries);

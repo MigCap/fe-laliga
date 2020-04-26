@@ -1,9 +1,5 @@
 import React, { memo } from 'react';
-// import PropTypes from 'prop-types';
 import { compose } from 'redux';
-// import { useSelector, useDispatch } from 'react-redux';
-
-// import { actions as usersActions } from 'redux/reducers/users';
 
 import './FlexContainer.scss';
 

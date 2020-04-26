@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { actions as usersActions } from 'redux/reducers/users';
 
-import { Box, DataTable, Text, Avatar, Anchor } from 'grommet';
+import { Box, DataTable, Text, Avatar } from 'grommet';
 // import { User, Trash } from 'grommet-icons';
 
 import './UsersListPage.scss';
@@ -40,11 +40,6 @@ export const UsersListPage = () => {
           columns={[
             {
               property: 'avatar',
-              // header: (
-              //   <Avatar background="dark-2">
-              //     <User color="light-1" />
-              //   </Avatar>
-              // ),
               primary: true,
               render: (user) => (
                 <Box pad={{ vertical: 'xsmall' }}>
@@ -58,7 +53,10 @@ export const UsersListPage = () => {
               property: 'first_name',
               header: <Text>First Name</Text>,
               render: (user) => (
-                <Anchor label={user.first_name} as={Link} to={`/users/${user.id}`} />
+                // <Anchor label={user.first_name} as={Link} to={`/users/${user.id}`} />
+                <Link to={`/users/${user.id}`}>
+                  <Text color="accent-1">Users</Text>
+                </Link>
               ),
             },
             {
@@ -69,17 +67,6 @@ export const UsersListPage = () => {
               property: 'email',
               header: 'email',
             },
-            // {
-            //   property: 'id',
-            //   render: (user) => (
-            //     <Button
-            //       icon={<Trash />}
-            //       onClick={() => {
-            //         console.log('DELETE ID ==> ', user.id);
-            //       }}
-            //     />
-            //   ),
-            // },
           ]}
           data={usersList}
         />
