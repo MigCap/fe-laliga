@@ -7,7 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint:eslint:fix": "eslint --ignore-path .gitignore --fix"
+    "lint:eslint:fix": "eslint --ignore-path .gitignore --ignore-pattern !.eslintrc.js --fix"
   },
   "lint-staged": {
     "*.{js,jsx}": [

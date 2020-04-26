@@ -5,6 +5,9 @@ import { compose } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { actions as authActions } from 'redux/reducers/auth';
+import { USER_KEY } from 'constants/constants';
+
+import { users } from 'utils/routes/routes';
 
 import { Box, Heading, Form, FormField, TextInput, Button, Text } from 'grommet';
 import { User, Lock } from 'grommet-icons';
@@ -12,31 +15,32 @@ import { User, Lock } from 'grommet-icons';
 import './LoginPage.scss';
 
 export const LoginPage = () => {
-  const [redirect, setRedirect] = useState(false);
+  const [hasLoggedIn, setHasLoggedIn] = useState(false);
   const [loginValues, setLoginValues] = useState({
     usuario: '',
     password: '',
   });
 
   const loginUserFetching = useSelector((state) => state.auth.loginUserFetching);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const authToken = useSelector((state) => state.auth && state.auth.token);
+  const isAuthenticated = useSelector((state) => state.auth.loginUserSuccess);
   const loginUserError = useSelector((state) => state.auth.loginUserError);
 
   const dispatch = useDispatch();
   const loginUser = (loginData) => dispatch(authActions.loginUser(loginData));
 
-  // useEffect(() => {
-  //   if (isAuthenticated && !loginUserFetching && !loginUserError) {
-  //     setRedirect(true);
-  //   }
-  //   return () => setRedirect(false);
-  // }, []);
+  useEffect(() => {
+    if (isAuthenticated && authToken && !loginUserFetching && !loginUserError) {
+      setHasLoggedIn(true);
+    }
+  }, []);
 
   useEffect(() => {
-    if (isAuthenticated && !loginUserFetching && !loginUserError) {
-      setRedirect(true);
+    if (isAuthenticated && authToken && !loginUserFetching && !loginUserError) {
+      window.localStorage.setItem(USER_KEY, authToken);
+      setHasLoggedIn(true);
     }
-  }, [isAuthenticated]);
+  }, [authToken, isAuthenticated]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -57,8 +61,8 @@ export const LoginPage = () => {
     loginUser(loginData);
   };
 
-  if (redirect) {
-    return <Redirect to="/users" />;
+  if (hasLoggedIn) {
+    return <Redirect to={users()} />;
   }
 
   return (

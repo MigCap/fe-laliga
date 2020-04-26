@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 // import PropTypes from 'prop-types';
 
-import { Box, Grommet, ResponsiveContext } from 'grommet';
+import { Box, Grommet, ResponsiveContext, Heading } from 'grommet';
 
 import NavBar from 'containers/NavBar/NavBar';
 import SideBar from 'containers/SideBar/SideBar';
@@ -34,32 +34,47 @@ export const App = () => {
     <Grommet theme={theme} full themeMode="dark">
       <ResponsiveContext.Consumer>
         {(size) => (
-          <Box fill>
-            <NavBar
-              size={size}
-              showSidebar={showSidebar}
-              setShowSidebar={setShowSidebar}
-            />
-            <Box
-              direction="row"
-              flex
-              overflow={{ horizontal: 'hidden' }}
-              background="brand"
-            >
-              <RoutesAndBoundaries />
-              <SideBar
+          <Suspense
+            fallback={
+              <Box
+                direction="row"
+                flex
+                overflow={{ horizontal: 'hidden' }}
+                background="brand"
+              >
+                <Heading level="3" margin="none" color="brand">
+                  Loading ...
+                </Heading>
+              </Box>
+            }
+          >
+            <Box fill>
+              <NavBar
                 size={size}
                 showSidebar={showSidebar}
                 setShowSidebar={setShowSidebar}
               />
+              <Box
+                direction="row"
+                flex
+                overflow={{ horizontal: 'hidden' }}
+                background="brand"
+              >
+                <RoutesAndBoundaries />
+                <SideBar
+                  size={size}
+                  showSidebar={showSidebar}
+                  setShowSidebar={setShowSidebar}
+                />
+              </Box>
             </Box>
-          </Box>
+          </Suspense>
         )}
       </ResponsiveContext.Consumer>
     </Grommet>
   );
 };
 
-// FlexContainer.propTypes = {}
+// App.propTypes = {}
 
 export default App;
