@@ -11,13 +11,18 @@ import './App.scss';
 
 const theme = {
   global: {
-    // colors: {
-    //   brand: '#228BE6',
-    // },
+    colors: {
+      brand: 'rgb(10, 25, 47)',
+    },
     font: {
       family: 'Roboto',
       size: '18px',
       height: '20px',
+    },
+    focus: {
+      border: {
+        color: 'none',
+      },
     },
   },
 };
@@ -39,7 +44,7 @@ export const App = () => {
               direction="row"
               flex
               overflow={{ horizontal: 'hidden' }}
-              background="light-2"
+              background="brand"
             >
               <RoutesAndBoundaries />
               <SideBar
