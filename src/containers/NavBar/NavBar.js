@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Box, Button, Heading, Nav, Anchor } from 'grommet';
-import { Menu, Login, Group } from 'grommet-icons';
+import { actions as authActions } from 'redux/reducers/auth';
+
+import { Box, Button, Nav, Anchor, Image } from 'grommet';
+import { Menu, Logout, Group } from 'grommet-icons';
+
+import logoLiga from 'assets/laliga-logo-300x300.png';
 
 import './NavBar.scss';
 
@@ -15,9 +20,9 @@ const AppBar = (props) => (
     justify="between"
     pad={{ left: 'medium', right: 'small', vertical: 'small' }}
     elevation="medium"
-    style={{ zIndex: '1' }}
-    responsive="true"
-    background="light-2"
+    // style={{ zIndex: '1' }}
+    background="brand"
+    responsive
     // eslint-disable-next-line react/jsx-props-no-spreading
     {...props}
   />
@@ -26,19 +31,30 @@ const AppBar = (props) => (
 export const NavBar = (props) => {
   const { showSidebar, setShowSidebar, size } = props;
 
+  const path = useSelector((state) => state.router.location.pathname);
+
+  const dispatch = useDispatch();
+  const logoutUser = () => dispatch(authActions.logoutUser());
+
+  const isHomePage = path === '/';
+
   return (
     <AppBar>
-      <Heading level="3" margin="none" color="brand">
-        FE LaLiga
-      </Heading>
+      <Box height="xsmall" width="xsmall">
+        <Image fit="contain" src={logoLiga} />
+      </Box>
       <Box direction="row" pad="small">
-        {size !== 'small' && (
-          <Box>
-            <Nav direction="row" pad="small">
-              <Anchor icon={<Group />} label="Users" as={Link} to="/users" />
-              <Anchor icon={<Login />} label="Login" as={Link} to="/" />
-            </Nav>
-          </Box>
+        {size !== 'small' && !isHomePage && (
+          <Nav direction="row" pad="small" flex align="center" aligContent="center">
+            <Anchor icon={<Group />} label="Users" as={Link} to="/users" />
+            <Button
+              type="button"
+              icon={<Logout color="accent-1" />}
+              // label="Logout"
+              color="accent-1"
+              onClick={() => logoutUser()}
+            />
+          </Nav>
         )}
         {size === 'small' && (
           <Box>

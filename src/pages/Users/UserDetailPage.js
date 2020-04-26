@@ -101,21 +101,20 @@ export const UserDetailPage = (props) => {
                 onChange={(e) => handleInputChange(e)}
               />
             </FormField>
-            <Box direction="row" gap="medium" pad="medium">
-              <Button type="submit" primary label="Actualizar" />
+            <Box direction="row" pad={{ top: 'medium' }}>
+              <Button type="submit" primary label="Actualizar" fill />
+            </Box>
+            <Box direction="row" pad={{ top: 'medium' }} gap="medium">
+              <Button
+                type="button"
+                secondary
+                label="Borrar usuario"
+                icon={<Trash />}
+                onClick={() => handleDeleteUser()}
+              />
               <Link type="button" to="/users">
                 <Button type="button" label="Volver" />
               </Link>
-            </Box>
-            <Box direction="row" pad="medium">
-              <Button
-                type="button"
-                primary
-                label="Borrar usuario"
-                icon={<Trash />}
-                fill
-                onClick={() => handleDeleteUser()}
-              />
             </Box>
           </Form>
         </Box>
