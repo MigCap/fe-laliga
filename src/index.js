@@ -10,7 +10,7 @@ import history from 'utils/appConfigUtils/history';
 
 import App from './app/App';
 
-import 'commonStyles/main.scss';
+import 'styles/main.scss';
 
 import * as serviceWorker from './app/serviceWorker';
 

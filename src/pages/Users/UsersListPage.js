@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { actions as usersActions } from 'redux/reducers/users';
 
+import FlexContainer from 'components/FlexContainer/FlexContainer';
+
 import { Box, DataTable, Text, Avatar } from 'grommet';
 // import { User, Trash } from 'grommet-icons';
 
@@ -17,24 +19,15 @@ export const UsersListPage = () => {
   // const getUsersError = useSelector((state) => state.users.getUsersError);
 
   const dispatch = useDispatch();
-  const getUsers = () => dispatch(usersActions.getUsers());
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    dispatch(usersActions.getUsers());
+  }, [dispatch]);
 
   const usersList = getUsersSuccess && getUsersSuccess.data;
 
   return (
-    <Box
-      flex
-      align="center"
-      alignSelf="start"
-      justify="center"
-      round="small"
-      margin="small"
-      pad="medium"
-    >
+    <FlexContainer alignSelf="flex-start" margin="0 auto" padding="1rem 0" width="80%">
       {usersList && !getUsersFetching && (
         <DataTable
           columns={[
@@ -71,7 +64,7 @@ export const UsersListPage = () => {
           data={usersList}
         />
       )}
-    </Box>
+    </FlexContainer>
   );
 };
 

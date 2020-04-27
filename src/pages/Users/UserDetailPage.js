@@ -8,10 +8,18 @@ import { actions as usersActions } from 'redux/reducers/users';
 
 import { users } from 'utils/routes/routes';
 
+import FlexContainer from 'components/FlexContainer/FlexContainer';
+
 import { Box, Heading, Avatar, Form, FormField, TextInput, Text, Button } from 'grommet';
 import { Trash, Previous } from 'grommet-icons';
 
+import styled from 'styled-components';
+
 import './UserDetailPage.scss';
+
+const CustomForm = styled(Form)`
+  width: 100%;
+`;
 
 export const UserDetailPage = (props) => {
   const { match } = props;
@@ -26,23 +34,22 @@ export const UserDetailPage = (props) => {
   // const getUserDetailError = useSelector((state) => state.users.getUserDetailError);
 
   const dispatch = useDispatch();
-  const getUserDetail = (userId) => dispatch(usersActions.getUserDetail(userId));
   const deleteUser = (userId) => dispatch(usersActions.deleteUser(userId));
   const updateUserDetail = (userId, userData) =>
     dispatch(usersActions.updateUserDetail(userId, userData));
 
   useEffect(() => {
     if (params && params.userId) {
-      getUserDetail(params.userId);
+      dispatch(usersActions.getUserDetail(params.userId));
     }
-  }, []);
+  }, [dispatch, params]);
 
   useEffect(() => {
     if (getUserDetailSuccess && getUserDetailSuccess.data && !getUserDetailFetching) {
       setShowUserDetail(true);
       setUserValues(getUserDetailSuccess.data);
     }
-  }, [getUserDetailSuccess]);
+  }, [getUserDetailSuccess, getUserDetailFetching]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -76,8 +83,8 @@ export const UserDetailPage = (props) => {
 
   if (showUserDetail) {
     return (
-      <Box pad="small" flex align="center">
-        <Box pad="medium" alignSelf="start">
+      <Box pad="medium" flex align="center">
+        <Box alignSelf="start" pad={{ left: 'small' }}>
           <Link type="button" to={users()}>
             <Button
               type="button"
@@ -87,11 +94,20 @@ export const UserDetailPage = (props) => {
             />
           </Link>
         </Box>
-        <Box pad="medium">
-          <Avatar src={userValues.avatar} size="large" />
+        <Box pad={{ top: 'xlarge', bottom: 'large' }}>
+          <Avatar src={userValues.avatar} size="xlarge" />
         </Box>
-        <Box direction="row" pad="medium" flex align="start">
-          <Form onSubmit={(e) => handleSubmitUserUpdate(e)}>
+        <FlexContainer
+          direction="column"
+          alignSelf="flex-start"
+          margin="0 auto"
+          padding="1rem 0"
+          width="70%"
+        >
+          <CustomForm
+            onSubmit={(e) => handleSubmitUserUpdate(e)}
+            className="form__wrapper"
+          >
             <FormField name="first_name" label="First Name">
               <TextInput
                 name="first_name"
@@ -126,8 +142,8 @@ export const UserDetailPage = (props) => {
                 onClick={() => handleDeleteUser()}
               />
             </Box>
-          </Form>
-        </Box>
+          </CustomForm>
+        </FlexContainer>
       </Box>
     );
   }
