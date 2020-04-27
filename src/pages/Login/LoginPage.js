@@ -3,10 +3,9 @@ import React, { memo, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { actions as authActions } from 'redux/reducers/auth';
-import { USER_KEY } from 'constants/constants';
 
+import { USER_KEY } from 'constants/constants';
 import { users } from 'utils/routes/routes';
 
 import { Box, Heading, Form, FormField, TextInput, Button, Text } from 'grommet';
@@ -33,14 +32,14 @@ export const LoginPage = () => {
     if (isAuthenticated && authToken && !loginUserFetching && !loginUserError) {
       setHasLoggedIn(true);
     }
-  }, []);
+  }, [isAuthenticated, authToken, loginUserFetching, loginUserError]);
 
   useEffect(() => {
     if (isAuthenticated && authToken && !loginUserFetching && !loginUserError) {
       window.localStorage.setItem(USER_KEY, authToken);
       setHasLoggedIn(true);
     }
-  }, [authToken, isAuthenticated]);
+  }, [authToken, isAuthenticated, loginUserFetching, loginUserError]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -107,7 +106,13 @@ export const LoginPage = () => {
             </Text>
           </Box>
           <Box direction="row" pad={{ top: 'large' }} fill>
-            <Button type="submit" primary label="Login" fill />
+            <Button
+              type="submit"
+              primary
+              label="Login"
+              disabled={loginUserFetching}
+              fill
+            />
           </Box>
         </Form>
       </Box>

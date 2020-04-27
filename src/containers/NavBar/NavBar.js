@@ -14,7 +14,7 @@ import './NavBar.scss';
 
 const AppBar = (props) => (
   <Box
-    tag="NavBar"
+    as="div"
     direction="row"
     align="center"
     justify="between"
@@ -48,9 +48,6 @@ export const NavBar = (props) => {
       <Box direction="row" pad="small">
         {size !== 'small' && !isHomePage && (
           <Nav direction="row" pad="small" flex align="center" aligContent="center">
-            {/* <Anchor href={users()} color="accent-1">
-              Users
-            </Anchor> */}
             <Link to={users()}>
               <Text color="accent-1">Users</Text>
             </Link>

@@ -17,6 +17,8 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+During the development process I haven't got time to add any test neither unitary or end to end ones.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
@@ -37,32 +39,46 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `yarn lint:eslint:fix`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Note: used to the lint-staged pre-commit check!**
+**Note: Ihave used husky as a dependency for this specific task**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This has been implemented as per requirement.
 
-### Code Splitting
+## Lazy loading Components
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+I have used Suspense mode convined with lazy to achieve lazy loading of different routes.
 
-### Analyzing the Bundle Size
+## Added both eslint and prettier code styling tools
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Both have been config adding specific plugins.
 
-### Making a Progressive Web App
+## Added support for absolute imports
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Config inside jsconfig.json
 
-### Advanced Configuration
+## DELETE Y PUT API methods
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+They are not modifing the list itself so I just redirect to users list once the action has been completed succesfully
 
-### Deployment
+## Styles
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+- Decided to use Grommet as main UI library. Its gonna give me quick acces to UI components
+- Added style components to create some ui components & global style.
+- Added sass support. Created variables file.
+- Did a bit of mix & match of both 3.
 
-### `yarn build` fails to minify
+## Dependencies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Locked versions.
+
+## Errors
+
+I had not time to implement error catching.
+I just got them in my redux store from the catch of sagas methods.
+
+## Routing
+
+Standard library 'react-router-dom'.
+Added connection to redux throw the store config file.
