@@ -58,7 +58,7 @@ Both have been config adding specific plugins.
 
 Config inside jsconfig.json
 
-## DELETE Y PUT API methods
+## DELETE & PUT API methods
 
 They are not modifing the list itself so I just redirect to users list once the action has been completed succesfully
 
@@ -82,3 +82,7 @@ I just got them in my redux store from the catch of sagas methods.
 
 Standard library 'react-router-dom'.
 Added connection to redux throw the store config file.
+
+**Note: I could further extend folder architecture, routing functionalities, etc ... but I couldn't have enought time to do a better job**
+
+**Note: Thank you for taking time on revising this!!!**
